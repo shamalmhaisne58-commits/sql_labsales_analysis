@@ -1,0 +1,54 @@
+CREATE DATABASE Lab_Analytics;
+
+USE Lab_Analytics;
+
+CREATE TABLE lab_sales (
+    Product_ID INT,
+    Product_Name VARCHAR(50),
+    Category VARCHAR(50),
+    Department VARCHAR(50),
+    Units_Sold INT,
+    Price INT,
+    Stock_Left INT,
+    Month VARCHAR(20)
+);
+
+INSERT INTO lab_sales VALUES
+(1, 'PCR Kit', 'Molecular', 'Microbiology', 120, 5000, 30, 'January'),
+
+(2, 'ELISA Kit', 'Immunology', 'Pathology', 80, 7000, 20, 'January'),
+
+(3, 'Centrifuge', 'Equipment', 'Biochemistry', 10, 45000, 5, 'February'),
+
+(4, 'Microscope', 'Equipment', 'Pathology', 5, 60000, 2, 'February'),
+
+(5, 'Pipette Tips', 'Consumables', 'Research', 300, 15, 500, 'March'),
+
+(6, 'PCR Kit', 'Molecular', 'Microbiology', 150, 5000, 25, 'March');
+
+SELECT * FROM lab_sales;
+
+SELECT 
+SUM(Units_Sold * Price) AS Total_Revenue
+FROM lab_sales;
+
+SELECT Product_Name,
+SUM(Units_Sold) AS Total_Units
+FROM lab_sales
+GROUP BY Product_Name
+ORDER BY Total_Units DESC;
+
+SELECT Department,
+SUM(Units_Sold * Price) AS Revenue
+FROM lab_sales
+GROUP BY Department;
+
+SELECT Product_Name, Stock_Left
+FROM lab_sales
+WHERE Stock_Left < 10;
+
+SELECT Category,
+SUM(Units_Sold * Price) AS Revenue
+FROM lab_sales
+GROUP BY Category
+ORDER BY Revenue DESC;
